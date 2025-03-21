@@ -5,8 +5,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { TypesModule } from './types/types.module';
 import { PropertiesModule } from './properties/properties.module';
-import { Type } from './types/entities/type.entity';
-import { Property } from './properties/entities/property.entity';
+import { ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
   imports: [
@@ -23,12 +22,26 @@ import { Property } from './properties/entities/property.entity';
       autoLoadEntities: true,
       synchronize: true,
     }),
+    ThrottlerModule.forRoot({
+      throttlers: [
+        {
+          name: 'auth',
+          limit: 5,
+          ttl: 60,
+        }
+      ]
+    }),
     UsersModule,
     AuthModule,
     TypesModule,
     PropertiesModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: 'APP_GUARD',
+      useClass: ThrottlerModule,
+    },
+  ],
 })
 export class AppModule { }
