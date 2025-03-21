@@ -1,6 +1,9 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
 import { Logger, ValidationPipe } from '@nestjs/common';
+import helmet from 'helmet';
+import * as hpp from 'hpp';
+
+import { AppModule } from './app.module';
 
 async function bootstrap() {
   const logger = new Logger('Bootstrap');
@@ -8,12 +11,21 @@ async function bootstrap() {
 
   app.setGlobalPrefix('api');
 
+  app.use(helmet());
+  app.use(hpp());
+
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
       forbidNonWhitelisted: true,
     })
   );
+
+  app.enableCors({
+    origin: ['http://localhost:3000'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true,
+  });
 
   await app.listen(process.env.PORT ?? 3000);
 }
