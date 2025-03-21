@@ -104,6 +104,11 @@ npm run start:debug
 npm run format
 ```
 
+## Despliegue
+
+### URL
+https://technical-test-api-e274a96f107d.herokuapp.com/ | https://git.heroku.com/technical-test-api.git
+
 ## 📌 Notas
 	•	La base de datos se sincroniza automáticamente (synchronize: true) en desarrollo.
 	•	En producción, usa migraciones para mantener integridad.
