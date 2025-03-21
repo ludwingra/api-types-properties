@@ -46,7 +46,12 @@ npm install
 cp .env.template .env
 ```
 
-### 4. 🧪 Ejecución
+### 4. Ejecución de docker-compose para la base de datos en local(Opcional)
+```bash
+docker-compose up -d
+```
+
+### 5. 🧪 Ejecución
 ```bash
 npm run start:dev
 ```
@@ -102,6 +107,9 @@ npm run start:debug
 
 # Formatear con Prettier
 npm run format
+
+# Ejecutar contenedor de PostgreSQL
+docker-compose up -d
 ```
 
 ## Despliegue
